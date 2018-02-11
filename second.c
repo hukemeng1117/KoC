@@ -14,8 +14,8 @@ void pushNode(pNode* pHead,int data){
     tempNode ->data = data;
     tempNode ->next = NULL;
     
-    if(pHead == NULL){
-        pHead = &tempNode;
+    if(*pHead == NULL){
+        *pHead = tempNode;
     }else{
         pNode tempNode2 = *pHead;
         while(tempNode2 ->next != NULL){
