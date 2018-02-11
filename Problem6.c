@@ -37,6 +37,8 @@ void TreeStruct(int* preorder,int* midorder,int length,int flag1,pTreeNode paren
 	int data = preorder[0];
 	int flag = 0;
 
+	pushTree(&parent,flag1,data);
+
 	for(int i = 0;i < length;i++){
 		if(data == midorder[i]){
 			flag = i;
@@ -63,11 +65,9 @@ void TreeStruct(int* preorder,int* midorder,int length,int flag1,pTreeNode paren
 
 	pTreeNode parent1 = (pTreeNode)malloc(sizeof(treeNode));
 	parent1 = parent ->leftChild;
-	pushTree(*parent1,0,leftPreorder[0]);
 	TreeStruct(leftPreorder,leftMidorder,flag,0,parent1);
 	pTreeNode parent2 = (pTreeNode)malloc(sizeof(treeNode));
 	parent2 = parent ->leftChild;
-	pushTree(*parent2,1,rightPreorder[0]);
 	TreeStruct(rightPreorder,rightMidorder,length-flag-1,1,parent2);
 
 	
@@ -88,19 +88,17 @@ void printTree(pTreeNode parent){
 int main(int argc, char const *argv[])
 {
 	
-	// int* preorder = (int*)malloc(8*sizeof(int));
-	// preorder = [1,2,4,7,3,5,6,8];
-	// int* midorder = (int*)malloc(8*sizeof(int));
-	// midorder = [4,7,2,1,5,3,8,6];
+	int preorder[8] = {1,2,4,7,3,5,6,8};
+	int midorder[8] = {4,7,2,1,5,3,8,6};
 
-	pTreeNode parent;
-	pushTree(&parent,1,1);
-	pushTree(&parent,0,2);
-	//pTreeNode ll = parent -> leftChild;
-	pushTree(&parent,1,3);
+	 pTreeNode parent = NULL;
+	// pushTree(&parent,1,1);
+	// pushTree(&parent,0,2);
+	// pushTree(&parent,1,3);
+
+	TreeStruct(preorder,midorder,8,0,parent);
+
 	printTree(parent);
-
-
 
 	return 0;
 }
