@@ -7,16 +7,16 @@
 #define false 0
 
 bool Increament(char* num){
-    bool overflower = false;
     int nTakeOver = 0;
     int length = strlen(num);
+
     for(int i = length - 1;i >= 0;i--){
         int nSum = num[i] - '0' +nTakeOver;
         if(i == length-1)
             nSum++;
         if(nSum >= 10){
             if(i == 0){
-                overflower = true;
+                return false;
             }else{
                 nSum = nSum - 10;
                 nTakeOver = 1;
@@ -28,6 +28,7 @@ bool Increament(char* num){
         }
 
     }
+    return true;
 
 }
 
@@ -35,7 +36,7 @@ void printNumber(char* num){
     bool isBeginning0 = true;
     int length = strlen(num);
     for(int i = 0;i < length;i++){
-        if((!isBeginning0) && num[i] != 0){
+        if(num[i] != '0'){
             isBeginning0 = false;
         }
         if(!isBeginning0){
@@ -53,15 +54,16 @@ void print1ToMaxOfNDigits(int n){
     }
     char* num = (char*)malloc((n+1)*sizeof(char));
     memset(num,'0',n);
-    num[n+1] = '\0';
-    while(!Increament(num)){
+    num[n] = '\0';
+    while(Increament(num)){
         printNumber(num);
+        printf("%s","--------------");
     }
     free(num);
 }
 
 
 int main(){
-    print1ToMaxOfNDigits(-2);
+    print1ToMaxOfNDigits(3);
     return 0;
 }
